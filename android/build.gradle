@@ -2,29 +2,34 @@ group 'fr.g123k.deviceapps'
 version '1.0-SNAPSHOT'
 
 buildscript {
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.android.tools.build:gradle:7.3.1'
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 30
+    // Conditional for compatibility with AGP <4.2.
+    if (project.android.hasProperty("namespace")) {
+        namespace 'fr.g123k.deviceapps'
+    }
 
     defaultConfig {
+        compileSdk 34
         minSdkVersion 16
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -34,6 +39,6 @@ android {
     }
 
     dependencies {
-        implementation 'androidx.annotation:annotation:1.2.0'
+        implementation 'androidx.annotation:annotation:1.7.0'
     }
 }
